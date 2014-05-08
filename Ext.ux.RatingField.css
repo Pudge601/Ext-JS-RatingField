@@ -4,6 +4,7 @@
     padding: 2px 2px;
     display: inline-block;
     float: left;
+    cursor: pointer;
 }
 
 .x-ux-form-rating-field .rating-icon-small {
