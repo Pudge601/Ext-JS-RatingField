@@ -167,8 +167,11 @@ Ext.define('Ext.ux.RatingField', {
      */
     showStars: function(e, t) {
         var limitStar = t.getAttribute('key');
-        for(var i = 0 ; i < limitStar ; i++) {
-            this.stars[i].addClass('rating-hover');
+        for(var i = 0 ; i < this.stars.length ; i++) {
+            this.stars[i].removeClass('rating-selected');
+            if (i < limitStar) {
+                this.stars[i].addClass('rating-hover');
+            }
         }
     },
     /**
@@ -178,6 +181,9 @@ Ext.define('Ext.ux.RatingField', {
     hideStars: function(e, t) {
         for(var i = 0 ; i < this.stars.length ; i++) {
             this.stars[i].removeClass('rating-hover');
+            if (i < this.value) {
+                this.stars[i].addClass('rating-selected');
+            }
         }
     },
     /**
