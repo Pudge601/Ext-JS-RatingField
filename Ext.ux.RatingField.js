@@ -82,6 +82,9 @@ Ext.define('Ext.ux.RatingField', {
                 'rating-icon-' + this.scale,
                 'rating-star'
             ]);
+            if (i <= this.value) {
+                star.addClass('rating-selected');
+            }
             this.el.appendChild(star);
             this.stars[i - 1] = star;
         }
@@ -93,7 +96,6 @@ Ext.define('Ext.ux.RatingField', {
         var inputElement = document.createElement('input');
         inputElement.setAttributeNode(this.createHtmlAttribute("type", "hidden"));
         inputElement.setAttributeNode(this.createHtmlAttribute("name", this.getName()));
-        this.reset();
     },
     /**
      * Create and append the reset button for the field
