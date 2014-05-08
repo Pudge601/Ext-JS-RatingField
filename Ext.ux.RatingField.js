@@ -4,7 +4,7 @@
  * Copyright 2011, Dan Harabagiu
  * Licenced under the Apache License Version 2.0
  * See LICENSE
- *
+ * https://github.com/digitalwm/Ext-JS-RatingField
  *
  * Version : 0.1 - Initial coding
  * Version : 0.2
@@ -14,13 +14,18 @@
  *  - Minimum number of stars is 2
  *  - On creation default value is now 0, was null
  *  - Option to choose left / right for the reset button position
+ *
+ *  Modified for Ext JS 3.x by ChrisM
+ *  https://github.com/chrisminett/Ext-JS-RatingField
  */
 /*global Ext : false, */
 
 Ext.define('Ext.ux.RatingField', {
-    extend    :  'Ext.form.Field',
-    alias     :  'widget.ratingField',
-    requires  :  ['Ext.form.field.VTypes', 'Ext.layout.component.field.Text'],
+    extend : 'Ext.form.Field',
+
+    defaultAutoCreate : {tag: "div"},
+    fieldClass : "x-ux-form-rating-field",
+
     //Configurable parameters
     numberOfStars   : 5,
     ratingClassOn   : "starOn",
@@ -48,8 +53,6 @@ Ext.define('Ext.ux.RatingField', {
             this.resetButtonPosition = "right";
         }
 
-        this.bodyEl.update('');
-
         if(this.resetButtonPosition === "left") {
             this.createCancelButton();
         }
@@ -59,8 +62,8 @@ Ext.define('Ext.ux.RatingField', {
             var starElement = document.createElement('div');
             starElement.setAttributeNode(this.createHtmlAttribute("key", i));
             var star = new Ext.Element(starElement);
-            star.addCls(this.ratingClassOff);
-            this.bodyEl.appendChild(star);
+            star.addClass(this.ratingClassOff);
+            this.el.appendChild(star);
             this.stars[i - 1] = star;
         }
 
@@ -72,8 +75,8 @@ Ext.define('Ext.ux.RatingField', {
         inputElement.setAttributeNode(this.createHtmlAttribute("type", "hidden"));
         inputElement.setAttributeNode(this.createHtmlAttribute("name", this.getName()));
         this.hiddenField = new Ext.Element(inputElement);
-        this.hiddenField.addCls('starHiddenClearMode');
-        this.bodyEl.appendChild(this.hiddenField);
+        this.hiddenField.addClass('starHiddenClearMode');
+        this.el.appendChild(this.hiddenField);
         this.reset();
     },
     /**
@@ -84,8 +87,8 @@ Ext.define('Ext.ux.RatingField', {
     createCancelButton : function() {
         var cancelButtonElement = document.createElement('div');
         this.cancelButton = new Ext.Element(cancelButtonElement);
-        this.cancelButton.addCls(this.ratingClassReset);
-        this.bodyEl.appendChild(this.cancelButton);
+        this.cancelButton.addClass(this.ratingClassReset);
+        this.el.appendChild(this.cancelButton);
     },
     /**
      * Initialise event listeners
@@ -109,10 +112,10 @@ Ext.define('Ext.ux.RatingField', {
      */
     reset : function() {
         for(var i = 0 ; i < this.stars.length ; i++) {
-            if(this.stars[i].hasCls(this.ratingClassOn) === true && this.stars[i].hasCls(this.ratingClassSelected) === true)
+            if(this.stars[i].hasClass(this.ratingClassOn) === true && this.stars[i].hasClass(this.ratingClassSelected) === true)
             {
-                this.stars[i].replaceCls(this.ratingClassOn,this.ratingClassOff);
-                this.stars[i].removeCls(this.ratingClassSelected);
+                this.stars[i].replaceClass(this.ratingClassOn,this.ratingClassOff);
+                this.stars[i].removeClass(this.ratingClassSelected);
             }
         }
         this.setValue(0);
@@ -124,21 +127,21 @@ Ext.define('Ext.ux.RatingField', {
      * @param {HTMLElement} t
      * @return nothing
      */
-    selectStars : function() {
+    selectStars : function(e, t) {
         var i = 0;
         var limitStar = t.getAttribute('key');
 
         this.setValue(limitStar);
         this.hiddenField.set({ 'value' : limitStar }, true);
         for(i = 0 ; i < this.stars.length; i++) {
-            this.stars[i].removeCls(this.ratingClassSelected);
+            this.stars[i].removeClass(this.ratingClassSelected);
         }
 
         for(i = 0 ; i < limitStar ; i++) {
-            if(this.stars[i].hasCls(this.ratingClassOn) === false) {
-                this.stars[i].replaceCls(this.ratingClassOff,this.ratingClassOn);
+            if(this.stars[i].hasClass(this.ratingClassOn) === false) {
+                this.stars[i].replaceClass(this.ratingClassOff,this.ratingClassOn);
             }
-            this.stars[i].addCls(this.ratingClassSelected);
+            this.stars[i].addClass(this.ratingClassSelected);
         }
     },
     /**
@@ -147,11 +150,11 @@ Ext.define('Ext.ux.RatingField', {
      * @param {HTMLElement} t
      * @return nothing
      */
-    showStars: function() {
+    showStars: function(e, t) {
         var limitStar = t.getAttribute('key');
         for(var i = 0 ; i < limitStar ; i++) {
-            if(this.stars[i].hasCls(this.ratingClassOn) === false && this.stars[i].hasCls(this.ratingClassSelected) === false) {
-                this.stars[i].replaceCls(this.ratingClassOff,this.ratingClassOn);
+            if(this.stars[i].hasClass(this.ratingClassOn) === false && this.stars[i].hasClass(this.ratingClassSelected) === false) {
+                this.stars[i].replaceClass(this.ratingClassOff,this.ratingClassOn);
             }
         }
     },
@@ -159,10 +162,10 @@ Ext.define('Ext.ux.RatingField', {
      * Based on hover out, hide the amount of stars showed
      * @return nothing
      */
-    hideStars: function() {
+    hideStars: function(e, t) {
         for(var i = 0 ; i < this.stars.length ; i++) {
-            if(this.stars[i].hasCls(this.ratingClassOff) === false && this.stars[i].hasCls(this.ratingClassSelected) === false) {
-                this.stars[i].replaceCls(this.ratingClassOn,this.ratingClassOff);
+            if(this.stars[i].hasClass(this.ratingClassOff) === false && this.stars[i].hasClass(this.ratingClassSelected) === false) {
+                this.stars[i].replaceClass(this.ratingClassOn,this.ratingClassOff);
             }
         }
     },
