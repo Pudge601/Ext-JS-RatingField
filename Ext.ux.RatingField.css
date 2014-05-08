@@ -1,30 +1,30 @@
 .starOn {
-	background-image:	url(starOn.png);
-	margin 			:	2px 2px;
-	width			:	16px;
-	height			:	16px;
-	display			:	inline-block;
-	float			:	left;
+    background-image: url(starOn.png);
+    margin          : 2px 2px;
+    width           : 16px;
+    height          : 16px;
+    display         : inline-block;
+    float           : left;
 }
 
 .starOff {
-	background-image:	url(starOff.png);
-	margin 			:	2px 2px;
-	width			:	16px;
-	height			:	16px;
-	display			:	inline-block;
-	float			:	left;	
+    background-image: url(starOff.png);
+    margin          : 2px 2px;
+    width           : 16px;
+    height          : 16px;
+    display         : inline-block;
+    float           : left;
 }
 
 .starHiddenClearMode {
-	clear 			: 	left;
+    clear : left;
 }
 
 .starReset {
-    background-image:   url(starReset.png);
-    margin          :   2px 2px;
-    width           :   16px;
-    height          :   16px;
-    display         :   inline-block;
-    float           :   left;
+    background-image: url(starReset.png);
+    margin          : 2px 2px;
+    width           : 16px;
+    height          : 16px;
+    display         : inline-block;
+    float           : left;
 }
