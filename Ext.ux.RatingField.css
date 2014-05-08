@@ -2,23 +2,54 @@
     background-repeat: no-repeat;
     background-position: 2px;
     padding: 2px 2px;
-    width: 16px;
-    height: 16px;
     display: inline-block;
     float: left;
 }
 
-.x-ux-form-rating-field .rating-star {
+.x-ux-form-rating-field .rating-icon-small {
+    width: 16px;
+    height: 16px;
+}
+.x-ux-form-rating-field .rating-icon-medium {
+    width: 24px;
+    height: 24px;
+}
+.x-ux-form-rating-field .rating-icon-large {
+    width: 32px;
+    height: 32px;
+}
+
+.x-ux-form-rating-field .rating-icon-small.rating-star {
     background-image: url(starOff.png);
 }
-
-.x-ux-form-rating-field .rating-hover,
-.x-ux-form-rating-field .rating-selected {
-    background-image: url(starOn.png);
+.x-ux-form-rating-field .rating-icon-medium.rating-star {
+    background-image: url(starOff24.png);
+}
+.x-ux-form-rating-field .rating-icon-large.rating-star {
+    background-image: url(starOff32.png);
 }
 
-.x-ux-form-rating-field .rating-reset {
+.x-ux-form-rating-field .rating-icon-small.rating-hover,
+.x-ux-form-rating-field .rating-icon-small.rating-selected {
+    background-image: url(starOn.png);
+}
+.x-ux-form-rating-field .rating-icon-medium.rating-hover,
+.x-ux-form-rating-field .rating-icon-medium.rating-selected {
+    background-image: url(starOn24.png);
+}
+.x-ux-form-rating-field .rating-icon-large.rating-hover,
+.x-ux-form-rating-field .rating-icon-large.rating-selected {
+    background-image: url(starOn32.png);
+}
+
+.x-ux-form-rating-field .rating-icon-small.rating-reset {
     background-image: url(starReset.png);
+}
+.x-ux-form-rating-field .rating-icon-medium.rating-reset {
+    background-image: url(starReset24.png);
+}
+.x-ux-form-rating-field .rating-icon-large.rating-reset {
+    background-image: url(starReset32.png);
 }
 
 .x-ux-form-rating-field .clear-mode {

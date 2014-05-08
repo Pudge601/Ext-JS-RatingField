@@ -27,6 +27,18 @@ Ext.define('Ext.ux.RatingField', {
     fieldClass : "x-ux-form-rating-field",
 
     /**
+     * @cfg {String} scale
+     * <p>(Optional) The size of the Button. Three values are allowed:</p>
+     * <ul class="mdetail-params">
+     * <li>'small'<div class="sub-desc">Results in the button element being 16px high.</div></li>
+     * <li>'medium'<div class="sub-desc">Results in the button element being 24px high.</div></li>
+     * <li>'large'<div class="sub-desc">Results in the button element being 32px high.</div></li>
+     * </ul>
+     * <p>Defaults to <b><tt>'small'</tt></b>.</p>
+     */
+    scale: 'small',
+
+    /**
      * @cfg {Number} numberOfStars Minimum 2, maximum 10
      */
     numberOfStars: 5,
@@ -65,7 +77,11 @@ Ext.define('Ext.ux.RatingField', {
             var starElement = document.createElement('div');
             starElement.setAttributeNode(this.createHtmlAttribute("key", i));
             var star = new Ext.Element(starElement);
-            star.addClass(['rating-icon', 'rating-star']);
+            star.addClass([
+                'rating-icon',
+                'rating-icon-' + this.scale,
+                'rating-star'
+            ]);
             this.el.appendChild(star);
             this.stars[i - 1] = star;
         }
@@ -90,7 +106,11 @@ Ext.define('Ext.ux.RatingField', {
     createCancelButton : function() {
         var cancelButtonElement = document.createElement('div');
         this.cancelButton = new Ext.Element(cancelButtonElement);
-        this.cancelButton.addClass(['rating-icon', 'rating-reset']);
+        this.cancelButton.addClass([
+            'rating-icon',
+            'rating-icon-' + this.scale,
+            'rating-reset'
+        ]);
         this.el.appendChild(this.cancelButton);
     },
     /**
