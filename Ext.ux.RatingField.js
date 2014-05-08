@@ -32,7 +32,12 @@ Ext.define('Ext.ux.RatingField', {
     ratingClassOff  : "starOff",
     ratingClassReset: "starReset",
     ratingClassSelected : "starClicked",
-    resetButtonPosition : "right",
+
+    /**
+     * @cfg {String,Boolean} resetButtonPosition 'left', 'right', or false to disable
+     */
+    resetButtonPosition: "right",
+
     /**
      * Initialisez the elements and renders them
      * @param {Ext.Component} The component itself
@@ -49,7 +54,7 @@ Ext.define('Ext.ux.RatingField', {
         }
 
         //We default to right
-        if(this.resetButtonPosition !== "right" && this.resetButtonPosition !== "left") {
+        if(this.resetButtonPosition && this.resetButtonPosition !== "right" && this.resetButtonPosition !== "left") {
             this.resetButtonPosition = "right";
         }
 
@@ -104,7 +109,9 @@ Ext.define('Ext.ux.RatingField', {
             this.stars[i].on('click', this.selectStars, this);
         }
 
-        this.cancelButton.on('click', this.reset, this);
+        if (this.cancelButton) {
+            this.cancelButton.on('click', this.reset, this);
+        }
     },
     /**
      * Reset the stars and content of the field to 0
