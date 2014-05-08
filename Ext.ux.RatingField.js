@@ -93,9 +93,6 @@ Ext.define('Ext.ux.RatingField', {
         var inputElement = document.createElement('input');
         inputElement.setAttributeNode(this.createHtmlAttribute("type", "hidden"));
         inputElement.setAttributeNode(this.createHtmlAttribute("name", this.getName()));
-        this.hiddenField = new Ext.Element(inputElement);
-        this.hiddenField.addClass('clear-mode');
-        this.el.appendChild(this.hiddenField);
         this.reset();
     },
     /**
@@ -140,7 +137,6 @@ Ext.define('Ext.ux.RatingField', {
             this.stars[i].removeClass('rating-selected');
         }
         this.setValue(0);
-        this.hiddenField.set({ 'value' : 0 }, true);
     },
     /**
      * Based on click event, mark the amount of stars selected
@@ -153,7 +149,6 @@ Ext.define('Ext.ux.RatingField', {
         var limitStar = t.getAttribute('key');
 
         this.setValue(limitStar);
-        this.hiddenField.set({ 'value' : limitStar }, true);
         for(i = 0 ; i < this.stars.length; i++) {
             this.stars[i].removeClass('rating-selected');
         }

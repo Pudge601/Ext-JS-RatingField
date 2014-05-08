@@ -51,7 +51,3 @@
 .x-ux-form-rating-field .rating-icon-large.rating-reset {
     background-image: url(starReset32.png);
 }
-
-.x-ux-form-rating-field .clear-mode {
-    clear: left;
-}
