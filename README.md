@@ -9,6 +9,13 @@
 
 # Changelog
 
+Version 0.3 (for Ext JS 3.x)
+
+* Fork _digitalwm_'s Ext JS 4.x extension and convert to Ext JS 3.x
+* Make reset button optional
+* Allow icon scaling (similar to Ext.Button)
+* Remove configurable CSS classes in favour of cascading styles
+
 Version 0.2
 
 * Added Field reset button
@@ -27,22 +34,16 @@ Version 0.2
 	    anchor		:	'100%',
     	xtype		:	'ratingField',
 	    //Custom options
-	    numberOfStars	:	5,
-        ratingClassOn	:	"starOn",
-        ratingClassOff	:	"starOff",
-        ratingClassReset:   "starReset",
-        ratingClassSelected	:	"starClicked",
-        resetButtonPosition :   "right",
+	    numberOfStars       : 5,
+	    resetButtonPosition : "right",
+	    scale               : "small"
     }
 
-# Explenations?
+# Explanations?
 
 * _numberOfStars_ : The number of stars to use for rating (minimum 1 maximum 10)
-* _ratingClassOn_ : The CSS class for stars that are hovered or selected
-* _ratingClassOff_ : The CSS class for stars that are not selected or hovered
-* _ratingClassReset_ : The CSS class for the reset button
-* _ratingClassSelected_ : The CSS class for stars that are selected
-* _resetButtonPosition_ : The position of the reset button relative to the stars (left or right)
+* _resetButtonPosition_ : The position of the reset button relative to the stars (left or right, or false to disable)
+* _scale_ : Control the icon size, small, medium or large
 
 # Does it work?
 
