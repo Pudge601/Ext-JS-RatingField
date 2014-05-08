@@ -26,12 +26,10 @@ Ext.define('Ext.ux.RatingField', {
     defaultAutoCreate : {tag: "div"},
     fieldClass : "x-ux-form-rating-field",
 
-    //Configurable parameters
-    numberOfStars   : 5,
-    ratingClassOn   : "starOn",
-    ratingClassOff  : "starOff",
-    ratingClassReset: "starReset",
-    ratingClassSelected : "starClicked",
+    /**
+     * @cfg {Number} numberOfStars Minimum 2, maximum 10
+     */
+    numberOfStars: 5,
 
     /**
      * @cfg {String,Boolean} resetButtonPosition 'left', 'right', or false to disable
@@ -67,7 +65,7 @@ Ext.define('Ext.ux.RatingField', {
             var starElement = document.createElement('div');
             starElement.setAttributeNode(this.createHtmlAttribute("key", i));
             var star = new Ext.Element(starElement);
-            star.addClass(this.ratingClassOff);
+            star.addClass(['rating-icon', 'rating-star']);
             this.el.appendChild(star);
             this.stars[i - 1] = star;
         }
@@ -80,7 +78,7 @@ Ext.define('Ext.ux.RatingField', {
         inputElement.setAttributeNode(this.createHtmlAttribute("type", "hidden"));
         inputElement.setAttributeNode(this.createHtmlAttribute("name", this.getName()));
         this.hiddenField = new Ext.Element(inputElement);
-        this.hiddenField.addClass('starHiddenClearMode');
+        this.hiddenField.addClass('clear-mode');
         this.el.appendChild(this.hiddenField);
         this.reset();
     },
@@ -92,7 +90,7 @@ Ext.define('Ext.ux.RatingField', {
     createCancelButton : function() {
         var cancelButtonElement = document.createElement('div');
         this.cancelButton = new Ext.Element(cancelButtonElement);
-        this.cancelButton.addClass(this.ratingClassReset);
+        this.cancelButton.addClass(['rating-icon', 'rating-reset']);
         this.el.appendChild(this.cancelButton);
     },
     /**
@@ -119,11 +117,7 @@ Ext.define('Ext.ux.RatingField', {
      */
     reset : function() {
         for(var i = 0 ; i < this.stars.length ; i++) {
-            if(this.stars[i].hasClass(this.ratingClassOn) === true && this.stars[i].hasClass(this.ratingClassSelected) === true)
-            {
-                this.stars[i].replaceClass(this.ratingClassOn,this.ratingClassOff);
-                this.stars[i].removeClass(this.ratingClassSelected);
-            }
+            this.stars[i].removeClass('rating-selected');
         }
         this.setValue(0);
         this.hiddenField.set({ 'value' : 0 }, true);
@@ -141,14 +135,11 @@ Ext.define('Ext.ux.RatingField', {
         this.setValue(limitStar);
         this.hiddenField.set({ 'value' : limitStar }, true);
         for(i = 0 ; i < this.stars.length; i++) {
-            this.stars[i].removeClass(this.ratingClassSelected);
+            this.stars[i].removeClass('rating-selected');
         }
 
         for(i = 0 ; i < limitStar ; i++) {
-            if(this.stars[i].hasClass(this.ratingClassOn) === false) {
-                this.stars[i].replaceClass(this.ratingClassOff,this.ratingClassOn);
-            }
-            this.stars[i].addClass(this.ratingClassSelected);
+            this.stars[i].addClass('rating-selected');
         }
     },
     /**
@@ -160,9 +151,7 @@ Ext.define('Ext.ux.RatingField', {
     showStars: function(e, t) {
         var limitStar = t.getAttribute('key');
         for(var i = 0 ; i < limitStar ; i++) {
-            if(this.stars[i].hasClass(this.ratingClassOn) === false && this.stars[i].hasClass(this.ratingClassSelected) === false) {
-                this.stars[i].replaceClass(this.ratingClassOff,this.ratingClassOn);
-            }
+            this.stars[i].addClass('rating-hover');
         }
     },
     /**
@@ -171,9 +160,7 @@ Ext.define('Ext.ux.RatingField', {
      */
     hideStars: function(e, t) {
         for(var i = 0 ; i < this.stars.length ; i++) {
-            if(this.stars[i].hasClass(this.ratingClassOff) === false && this.stars[i].hasClass(this.ratingClassSelected) === false) {
-                this.stars[i].replaceClass(this.ratingClassOn,this.ratingClassOff);
-            }
+            this.stars[i].removeClass('rating-hover');
         }
     },
     /**
