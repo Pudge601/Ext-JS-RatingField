@@ -58,6 +58,17 @@ Ext.define('Ext.ux.RatingField', {
     onRender: function(ct, position) {
         Ext.ux.RatingField.superclass.onRender.call(this, ct, position);
 
+        this.wrap = this.el;
+
+        this.el = this.wrap.createChild({
+            tag: 'input',
+            type: 'hidden',
+            id: this.wrap.id + '-input',
+            name: this.wrap.getAttribute('name')
+        });
+
+        this.wrap.dom.removeAttribute('name');
+
         //We default to 2 stars
         if(this.numberOfStars < 2 || this.numberOfStars > 10) {
             this.numberOfStars = 2;
@@ -73,29 +84,25 @@ Ext.define('Ext.ux.RatingField', {
         }
 
         this.stars = [];
+        var star, starElement;
         for(var i = 1; i <= this.numberOfStars ; i++) {
-            var starElement = document.createElement('div');
-            starElement.setAttributeNode(this.createHtmlAttribute("key", i));
-            var star = new Ext.Element(starElement);
-            star.addClass([
-                'rating-icon',
-                'rating-icon-' + this.scale,
-                'rating-star'
-            ]);
+            star = {
+                cls: [
+                    'rating-icon',
+                    'rating-icon-' + this.scale,
+                    'rating-star'
+                ].join(' '),
+                key: i
+            };
             if (i <= this.value) {
-                star.addClass('rating-selected');
+                star.cls += ' rating-selected';
             }
-            this.el.appendChild(star);
-            this.stars[i - 1] = star;
+            this.stars.push(this.wrap.createChild(star));
         }
 
         if(this.resetButtonPosition === "right") {
             this.createCancelButton();
         }
-
-        var inputElement = document.createElement('input');
-        inputElement.setAttributeNode(this.createHtmlAttribute("type", "hidden"));
-        inputElement.setAttributeNode(this.createHtmlAttribute("name", this.getName()));
     },
     /**
      * Create and append the reset button for the field
@@ -103,14 +110,13 @@ Ext.define('Ext.ux.RatingField', {
      * Private function
      */
     createCancelButton : function() {
-        var cancelButtonElement = document.createElement('div');
-        this.cancelButton = new Ext.Element(cancelButtonElement);
-        this.cancelButton.addClass([
-            'rating-icon',
-            'rating-icon-' + this.scale,
-            'rating-reset'
-        ]);
-        this.el.appendChild(this.cancelButton);
+        this.cancelButton = this.wrap.createChild({
+            cls: [
+                'rating-icon',
+                'rating-icon-' + this.scale,
+                'rating-reset'
+            ].join(' ')
+        });
     },
     /**
      * Initialise event listeners
@@ -185,16 +191,5 @@ Ext.define('Ext.ux.RatingField', {
                 this.stars[i].addClass('rating-selected');
             }
         }
-    },
-    /**
-     * Private function, that ads a html attribute to a dom element
-     * @param {string} name The name of the attribute
-     * @param {string} value The value of the attribute
-     * @return {HTMLAttribute}
-     */
-    createHtmlAttribute: function(name, value) {
-        var attribute = document.createAttribute(name);
-        attribute.nodeValue = value;
-        return attribute;
     }
 });
