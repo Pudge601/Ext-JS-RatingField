@@ -85,7 +85,7 @@ Ext.define('Ext.ux.RatingField', {
                     'rating-icon-' + this.scale,
                     'rating-star'
                 ].join(' '),
-                key: i
+                'data-key': i
             };
             if (i <= this.value) {
                 star.cls += ' rating-selected';
@@ -147,7 +147,7 @@ Ext.define('Ext.ux.RatingField', {
      */
     selectStars : function(e, t) {
         var i = 0;
-        var limitStar = t.getAttribute('key');
+        var limitStar = t.getAttribute('data-key');
 
         this.setValue(limitStar);
         for(i = 0 ; i < this.stars.length; i++) {
@@ -164,7 +164,7 @@ Ext.define('Ext.ux.RatingField', {
      * @return nothing
      */
     showStars: function(e, t) {
-        var limitStar = t.getAttribute('key');
+        var limitStar = t.getAttribute('data-key');
         for(var i = 0 ; i < this.stars.length ; i++) {
             this.stars[i].removeClass('rating-selected');
             if (i < limitStar) {
