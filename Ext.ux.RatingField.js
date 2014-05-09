@@ -152,10 +152,9 @@ Ext.define('Ext.ux.RatingField', {
         this.setValue(limitStar);
         for(i = 0 ; i < this.stars.length; i++) {
             this.stars[i].removeClass('rating-selected');
-        }
-
-        for(i = 0 ; i < limitStar ; i++) {
-            this.stars[i].addClass('rating-selected');
+            if (i < limitStar) {
+                this.stars[i].addClass('rating-selected');
+            }
         }
     },
     /**
