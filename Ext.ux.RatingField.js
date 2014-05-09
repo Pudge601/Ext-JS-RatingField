@@ -23,7 +23,7 @@
 Ext.define('Ext.ux.RatingField', {
     extend : 'Ext.form.Field',
 
-    defaultAutoCreate : {tag: "div"},
+    defaultAutoCreate : {type: 'hidden'},
     fieldClass : "x-ux-form-rating-field",
 
     /**
@@ -58,16 +58,9 @@ Ext.define('Ext.ux.RatingField', {
     onRender: function(ct, position) {
         Ext.ux.RatingField.superclass.onRender.call(this, ct, position);
 
-        this.wrap = this.el;
-
-        this.el = this.wrap.createChild({
-            tag: 'input',
-            type: 'hidden',
-            id: this.wrap.id + '-input',
-            name: this.wrap.getAttribute('name')
+        this.wrap = this.el.wrap({
+            cls: this.fieldClass
         });
-
-        this.wrap.dom.removeAttribute('name');
 
         //We default to 2 stars
         if(this.numberOfStars < 2 || this.numberOfStars > 10) {
